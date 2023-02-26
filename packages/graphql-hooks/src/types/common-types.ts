@@ -107,7 +107,7 @@ export type LocalQueries = {
 }
 
 export interface Cache {
-  get(keyObject: CacheKeyObject): object
+  get(keyObject: CacheKeyObject): Promise<object>
   set(keyObject: CacheKeyObject, data: object): void
   delete(keyObject: CacheKeyObject): void
   clear(): void

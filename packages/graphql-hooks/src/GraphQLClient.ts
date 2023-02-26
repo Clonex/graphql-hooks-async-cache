@@ -187,8 +187,8 @@ class GraphQLClient {
     }
   }
 
-  getCache(cacheKey) {
-    const cacheHit = this.cache ? this.cache.get(cacheKey) : null
+  async getCache(cacheKey) {
+    const cacheHit = this.cache ? await this.cache.get(cacheKey) : null
 
     if (cacheHit) {
       return cacheHit

@@ -166,7 +166,7 @@ function useClientRequest<
 
   // arguments to fetchData override the useClientRequest arguments
   const fetchData = useDeepCompareCallback(
-    newOpts => {
+    async newOpts => {
       const revisedOpts = {
         ...initialOpts,
         ...newOpts
@@ -199,7 +199,7 @@ function useClientRequest<
 
       const cacheHit = revisedOpts.skipCache
         ? null
-        : client.getCache(revisedCacheKey)
+        : await client.getCache(revisedCacheKey)
 
       if (cacheHit) {
         dispatch({
