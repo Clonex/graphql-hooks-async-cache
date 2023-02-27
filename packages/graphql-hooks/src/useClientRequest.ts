@@ -166,7 +166,7 @@ function useClientRequest<
 
   // arguments to fetchData override the useClientRequest arguments
   const fetchData = useDeepCompareCallback(
-    async newOpts => {
+    newOpts => {
       const revisedOpts = {
         ...initialOpts,
         ...newOpts

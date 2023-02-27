@@ -211,7 +211,12 @@ class GraphQLClient {
 
   removeCache(cacheKey) {
     this.cache?.delete(cacheKey)
-    delete this.firedRequests[cacheKey]
+
+    const firedRequest = this.firedRequests[cacheKey];
+    if(firedRequest) {
+      firedRequest.resolver();
+      delete this.firedRequests[cacheKey]
+    }
   }
 
   // Kudos to Jayden Seric (@jaydenseric) for this piece of code.
