@@ -22,7 +22,11 @@ export type FetchFunction = (
   init?: RequestInit
 ) => Promise<Response>
 
-export type OnErrorFunction<ResponseData = any, TGraphQLError = GraphQLResponseError, TVariables = any> = ({
+export type OnErrorFunction<
+  ResponseData = any,
+  TGraphQLError = GraphQLResponseError,
+  TVariables = any
+> = ({
   result,
   operation
 }: {
@@ -107,7 +111,7 @@ export type LocalQueries = {
 }
 
 export interface Cache {
-  get(keyObject: CacheKeyObject): Promise<object>
+  get(keyObject: CacheKeyObject): object
   set(keyObject: CacheKeyObject, data: object): void
   delete(keyObject: CacheKeyObject): void
   clear(): void

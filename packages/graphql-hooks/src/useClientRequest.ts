@@ -197,9 +197,11 @@ function useClientRequest<
       // see https://github.com/nearform/graphql-hooks/issues/150
       activeCacheKey.current = revisedCacheKey
 
+      await client.waitFiredRequests(revisedCacheKey)
+
       const cacheHit = revisedOpts.skipCache
         ? null
-        : await client.getCache(revisedCacheKey)
+        : client.getCache(revisedCacheKey)
 
       if (cacheHit) {
         dispatch({
@@ -300,12 +302,15 @@ function useClientRequest<
     mutationsEmitter.on(Events.DATA_UPDATED, dataUpdatedCallback)
 
     return () => {
-      if(mutationsEmitter){
+      if (mutationsEmitter) {
         mutationsEmitter.removeListener(
           Events.DATA_INVALIDATED,
           dataInvalidatedCallback
         )
-        mutationsEmitter.removeListener(Events.DATA_UPDATED, dataUpdatedCallback)
+        mutationsEmitter.removeListener(
+          Events.DATA_UPDATED,
+          dataUpdatedCallback
+        )
       }
     }
   }, [])
