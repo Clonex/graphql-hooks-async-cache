@@ -197,7 +197,10 @@ function useClientRequest<
       // see https://github.com/nearform/graphql-hooks/issues/150
       activeCacheKey.current = revisedCacheKey
 
-      await client.waitFiredRequests(revisedCacheKey)
+      if(!revisedOpts.skipCache)
+      {
+        await client.waitFiredRequests(revisedCacheKey)
+      }
 
       const cacheHit = revisedOpts.skipCache
         ? null
@@ -214,7 +217,7 @@ function useClientRequest<
       }
 
       dispatch({ type: actionTypes.LOADING, initialState })
-
+      client.fireRequest(revisedCacheKey)
       return client.request(revisedOperation, revisedOpts).then(result => {
         if (
           revisedOpts.updateData &&

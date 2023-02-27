@@ -194,6 +194,18 @@ class GraphQLClient {
     return this.firedRequests[cacheKey]?.promise
   }
 
+  fireRequest(cacheKey) {
+    const data = {
+      promise: new Promise<void>(r => {
+        data.resolver = r;
+      }),
+      resolver: () => {
+        //
+      }
+    }
+    this.firedRequests[cacheKey] = data
+  }
+
   getCache(cacheKey) {
     const cacheHit = this.cache ? this.cache.get(cacheKey) : null
 
